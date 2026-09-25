@@ -3018,7 +3018,7 @@ ItemUseFossil:
 	ld a, PAD_RIGHT
 	ld [wSimulatedJoypadStatesEnd], a
 	ld [wJoyIgnore], a
-	jr .end
+	jp .end
 .AButton
 	cp 120
 	jr c, .BButton
@@ -3026,12 +3026,15 @@ ItemUseFossil:
 	call PrintText
 	ld c, 30
 	call DelayFrames
-	ld a, $1
-	ld [wSimulatedJoypadStatesIndex], a
-	ld a, PAD_A
-	ld [wSimulatedJoypadStatesEnd], a
-	ld [wJoyIgnore], a	
-	jr .end
+	call IsSpriteOrSignInFrontOfPlayer
+	ldh a, [hTextID]
+	and a
+	jr z, .aButtonDone
+	predef GetTileAndCoordsInFrontOfPlayer
+	call UpdateSprites
+	call DisplayTextID
+.aButtonDone
+	ret
 .BButton
 	cp 100
 	jr c, .SelectButton
