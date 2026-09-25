@@ -8,6 +8,17 @@ UncompressMonSprite::
 	ld [wSpriteInputPtr], a    ; fetch sprite input pointer
 	ld a, [hl]
 	ld [wSpriteInputPtr+1], a
+
+	ld a, [wAltSpriteBank]
+	and a
+	jr z, .normalBank
+	ld b, a
+	xor a
+	ld [wAltSpriteBank], a
+	ld a, b
+	jr .GotBank
+
+.normalBank
 ; define (by index number) the bank that a pokemon's image is in
 ; index = MEW:             bank $1
 ; index = FOSSIL_KABUTOPS: bank $B

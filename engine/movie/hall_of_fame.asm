@@ -113,7 +113,14 @@ HoFShowMonOrPlayer:
 	jr .next1
 .showMon
 	hlcoord 12, 5
+	ld a, [wHoFPartyMonIndex]
+	ld hl, wPartyMon1DVs
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+	push hl
 	call GetMonHeader
+	pop de
+	farcall CheckAlternativeSprite
 	call LoadFrontSpriteByMonIndex
 	predef LoadMonBackPic
 .next1

@@ -166,6 +166,8 @@ StatusScreen:
 	call PrintStatsBox
 	call Delay3
 	call GBPalNormal
+	ld de, wLoadedMonDVs
+	call CheckAlternativeSprite
 	hlcoord 1, 0
 	call LoadFlippedFrontSpriteByMonIndex ; draw Pokémon picture
 	ld a, [wCurPartySpecies]
@@ -473,4 +475,112 @@ StatusScreen_PrintPP:
 	add hl, de
 	dec c
 	jr nz, StatusScreen_PrintPP
+	ret
+
+CheckAlternativeSprite::
+	xor a
+	ld [wAltSpriteBank], a
+	ld a, [wCurPartySpecies]
+	cp ZAPDOS
+	jr z, .checkZapdos
+	cp NIDOKING
+	jr z, .checkNidoking
+	cp OMANYTE
+	jr z, .checkOmanyte
+	cp OMASTAR
+	jr z, .checkOmastar
+	cp VENOMOTH
+	jr z, .checkVenomoth
+	cp LAPRAS
+	jr z, .checkLapras
+	cp PIDGEOT
+	jr z, .checkPidgeot
+	ret
+.checkZapdos
+	ld a, [de]
+	cp $0E
+	ret nz
+	inc de
+	ld a, [de]
+	cp $7A
+	ret nz
+	ld hl, AlternativeZapdosPic
+	ld b, BANK(AlternativeZapdosPic)
+	jr .useAlternativeSprite
+.checkNidoking
+	ld a, [de]
+	cp $CA
+	ret nz
+	inc de
+	ld a, [de]
+	cp $7D
+	ret nz
+	ld hl, AlternativeNidokingPic
+	ld b, BANK(AlternativeNidokingPic)
+	jr .useAlternativeSprite
+.checkOmanyte
+	ld a, [de]
+	cp $D0
+	ret nz
+	inc de
+	ld a, [de]
+	cp $E4
+	ret nz
+	ld hl, AlternativeOmanytePic
+	ld b, BANK(AlternativeOmanytePic)
+	jr .useAlternativeSprite
+.checkOmastar
+	ld a, [de]
+	cp $D0
+	ret nz
+	inc de
+	ld a, [de]
+	cp $E4
+	ret nz
+	ld hl, AlternativeOmastarPic
+	ld b, BANK(AlternativeOmastarPic)
+	jr .useAlternativeSprite
+.checkVenomoth
+	ld a, [de]
+	cp $90
+	ret nz
+	inc de
+	ld a, [de]
+	cp $A6
+	ret nz
+	ld hl, AlternativeVenomothPic
+	ld b, BANK(AlternativeVenomothPic)
+	jr .useAlternativeSprite
+.checkLapras
+	ld a, [de]
+	cp $03
+	ret nz
+	inc de
+	ld a, [de]
+	cp $71
+	ret nz
+	ld hl, AlternativeLaprasPic
+	ld b, BANK(AlternativeLaprasPic)
+	jr .useAlternativeSprite
+.checkPidgeot
+	ld a, [de]
+	cp $AA
+	ret nz
+	inc de
+	ld a, [de]
+	cp $64
+	ret nz
+	ld hl, AlternativePidgeotPic
+	ld b, BANK(AlternativePidgeotPic)
+	jr .useAlternativeSprite
+.useAlternativeSprite
+	ld a, l
+	ld [wMonHFrontSprite], a
+	ld a, h
+	ld [wMonHFrontSprite + 1], a
+	; All alternative sprites are 7x7.
+	ld a, $77
+	ld [wMonHSpriteDim], a
+	ld a, b
+	ld [wAltSpriteBank], a
 	ret

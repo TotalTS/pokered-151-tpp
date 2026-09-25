@@ -373,3 +373,14 @@ LoreleiPic::       INCBIN "gfx/trainers/lorelei.pic"
 ChannelerPic::     INCBIN "gfx/trainers/channeler.pic"
 AgathaPic::        INCBIN "gfx/trainers/agatha.pic"
 LancePic::         INCBIN "gfx/trainers/lance.pic"
+
+SECTION "Pics 6", ROMX
+
+AlternativeZapdosPic::      INCBIN "gfx/pokemon/tppmon/zapdos.pic"
+AlternativeNidokingPic::    INCBIN "gfx/pokemon/tppmon/nidoking.pic"
+AlternativeOmanytePic::     INCBIN "gfx/pokemon/tppmon/omanyte.pic"
+AlternativeOmastarPic::     INCBIN "gfx/pokemon/tppmon/omastar.pic"
+AlternativeVenomothPic::    INCBIN "gfx/pokemon/tppmon/venomoth.pic"
+AlternativeLaprasPic::      INCBIN "gfx/pokemon/tppmon/lapras.pic"
+AlternativePidgeotPic::     INCBIN "gfx/pokemon/tppmon/pidgeot.pic"
+

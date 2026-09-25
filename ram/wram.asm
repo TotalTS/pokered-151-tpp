@@ -1511,6 +1511,8 @@ wSpriteDecodeTable0Ptr:: dw
 ; pointer to differential decoding table (assuming initial value 1)
 wSpriteDecodeTable1Ptr:: dw
 
+wAltSpriteBank:: db
+
 ; input for GetMonHeader
 wCurSpecies::
 ; input for GetName

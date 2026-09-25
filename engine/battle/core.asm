@@ -6722,6 +6722,8 @@ InitWildBattle:
 	ld [wCurPartySpecies], a
 	jr .spriteLoaded
 .isNoGhost
+	ld de, wEnemyMonDVs
+	farcall CheckAlternativeSprite
 	ld de, vFrontPic
 	call LoadMonFrontSprite ; load mon sprite
 .spriteLoaded
