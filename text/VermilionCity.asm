@@ -94,17 +94,8 @@ _VermilionCitySignText::
 	done
 
 _VermilionCityNoticeSignText::
-	text "NOTICE!"
-
-	para "ROUTE 12 may be"
-	line "blocked off by a"
-	cont "sleeping #MON."
-
-	para "Detour through"
-	line "ROCK TUNNEL to"
-	cont "LAVENDER TOWN."
-
-	para "VERMILION POLICE"
+	text $62, "ome to"
+	db $00
 	done
 
 _VermilionCityPokemonFanClubSignText::
