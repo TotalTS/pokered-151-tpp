@@ -378,6 +378,13 @@ StartMenu_Item::
 	call PrintText
 	jp ItemMenuLoop
 .notBicycle
+	ld a, [wCurItem]
+	cp HELIX_FOSSIL
+	jr nz, .notBicycle2
+	ld a, [wStatusFlags6]
+	bit BIT_ALWAYS_ON_BIKE, a
+	jr z, .useItem_closeMenu
+.notBicycle2
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .tossItem

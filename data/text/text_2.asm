@@ -1788,3 +1788,40 @@ _TextIDErrorText::
 _ContCharText::
 	text "<_CONT>@"
 	text_end
+
+_FossilText::
+	text "<PLAYER> consulted"
+	line "the HELIX FOSSIL!"
+	done
+
+_FossilUpText::
+	text "UP"
+	done
+
+_FossilDownText::
+	text "DOWN"
+	done
+	
+_FossilLeftText::
+	text "LEFT"
+	done
+
+_FossilRightText::
+	text "RIGHT"
+	done
+	
+_FossilAText::
+	text "A"
+	done
+
+_FossilBText::
+	text "B"
+	done
+	
+_FossilSelectText::
+	text "SELECT"
+	done
+
+_FossilStartText::
+	text "START"
+	done

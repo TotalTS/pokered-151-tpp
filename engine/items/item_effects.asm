@@ -58,7 +58,7 @@ ItemUsePtrTable:
 	dw ItemUseVitamin    ; CALCIUM
 	dw ItemUseVitamin    ; RARE_CANDY
 	dw UnusableItem      ; DOME_FOSSIL
-	dw UnusableItem      ; HELIX_FOSSIL
+	dw ItemUseFossil     ; HELIX_FOSSIL
 	dw UnusableItem      ; SECRET_KEY
 	dw UnusableItem      ; ITEM_2C
 	dw UnusableItem      ; BIKE_VOUCHER
@@ -2953,3 +2953,167 @@ CheckMapForMon:
 	jr nz, .loop
 	dec hl
 	ret
+
+ItemUseFossil:
+	ld a, [wIsInBattle]
+	and a
+	jp nz, ItemUseNotTime
+	call ItemUseReloadOverworldData
+	xor a
+	ld hl, FossilText
+	call PrintText
+	ld a, SFX_SAVE
+	call PlaySoundWaitForCurrent
+	call WaitForSoundToFinish
+	ld c, 30
+	call DelayFrames
+	ldh a, [hRandomAdd]
+	cp 200
+	jr c, .Down
+	ld hl, FossilUpText
+	call PrintText
+	ld c, 30
+	call DelayFrames
+	ld a, $1
+	ld [wSimulatedJoypadStatesIndex], a
+	ld a, PAD_UP
+	ld [wSimulatedJoypadStatesEnd], a
+	ld [wJoyIgnore], a
+	jp z, .end
+.Down
+	cp 180
+	jr c, .Left
+	ld hl, FossilDownText
+	call PrintText
+	ld c, 30
+	call DelayFrames
+	ld a, $1
+	ld [wSimulatedJoypadStatesIndex], a
+	ld a, PAD_DOWN
+	ld [wSimulatedJoypadStatesEnd], a
+	ld [wJoyIgnore], a
+	jp z, .end
+.Left
+	cp 160
+	jr c, .Right
+	ld hl, FossilLeftText
+	call PrintText
+	ld c, 30
+	call DelayFrames
+	ld a, $1
+	ld [wSimulatedJoypadStatesIndex], a
+	ld a, PAD_LEFT
+	ld [wSimulatedJoypadStatesEnd], a
+	ld [wJoyIgnore], a
+	jp z, .end
+.Right
+	cp 140
+	jr c, .AButton
+	ld hl, FossilRightText
+	call PrintText
+	ld c, 30
+	call DelayFrames
+	ld a, $1
+	ld [wSimulatedJoypadStatesIndex], a
+	ld a, PAD_RIGHT
+	ld [wSimulatedJoypadStatesEnd], a
+	ld [wJoyIgnore], a
+	jr .end
+.AButton
+	cp 120
+	jr c, .BButton
+	ld hl, FossilAText
+	call PrintText
+	ld c, 30
+	call DelayFrames
+	ld a, $1
+	ld [wSimulatedJoypadStatesIndex], a
+	ld a, PAD_A
+	ld [wSimulatedJoypadStatesEnd], a
+	ld [wJoyIgnore], a	
+	jr .end
+.BButton
+	cp 100
+	jr c, .SelectButton
+	ld hl, FossilBText
+	call PrintText
+	ld c, 30
+	call DelayFrames
+	ld a, $1
+	ld [wSimulatedJoypadStatesIndex], a
+	ld a, PAD_B
+	ld [wSimulatedJoypadStatesEnd], a
+	ld [wJoyIgnore], a	
+	jr .end
+.SelectButton
+	cp 80
+	jr c, .StartButton
+	ld hl, FossilSelectText
+	call PrintText
+	ld c, 30
+	call DelayFrames
+	ld a, $1
+	ld [wSimulatedJoypadStatesIndex], a
+	ld a, PAD_SELECT
+	ld [wSimulatedJoypadStatesEnd], a
+	ld [wJoyIgnore], a	
+	jr .end
+.StartButton
+	cp 60
+	jr c, .NothingHappened
+	ld hl, FossilStartText
+	call PrintText
+	ld c, 30
+	call DelayFrames
+	ld a, $1
+	ld [wSimulatedJoypadStatesIndex], a
+	ld a, PAD_START
+	ld [wSimulatedJoypadStatesEnd], a
+	ld [wJoyIgnore], a
+	jr .end
+.NothingHappened
+	ld hl, FossilNothingText
+	call PrintText
+	ret
+.end
+	jp StartSimulatingJoypadStates
+
+FossilText:
+	text_far _FossilText
+	text_end
+
+FossilNothingText:
+	text_far _NothingHappenedText
+	text_end
+
+FossilUpText:
+	text_far _FossilUpText
+	text_end
+
+FossilDownText:
+	text_far _FossilDownText
+	text_end
+
+FossilLeftText:
+	text_far _FossilLeftText
+	text_end
+
+FossilRightText:
+	text_far _FossilRightText
+	text_end
+
+FossilAText:
+	text_far _FossilAText
+	text_end
+
+FossilBText:
+	text_far _FossilBText
+	text_end
+
+FossilSelectText:
+	text_far _FossilSelectText
+	text_end
+
+FossilStartText:
+	text_far _FossilStartText
+	text_end
