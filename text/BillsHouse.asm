@@ -86,3 +86,45 @@ _BillsHouseBillCheckOutMyRarePokemonText::
 	cont "some of my rare"
 	cont "#MON on my PC!"
 	done
+
+_BillsHouseOakText1::
+	text "OAK: Hi, <PLAYER>!"
+
+	para "I was just"
+	line "talking to BILL,"
+	cont "we just recovered"
+	cont "some #MON that"
+	cont "were released"
+	cont "from the PC!"
+	
+	para "We've found this"
+	line "CHARMELEON called"
+	cont "ABBBBBBK(!"
+	
+	para "I've heard you"
+	line "lost CHARMELEON"
+	cont "a long time ago"
+	cont "so I thought"
+	cont "you wanted your"
+	cont "old #MON back!"
+	prompt
+	
+_RecoveredCharmeleonText::
+	text "<PLAYER> recovered"
+	line "CHARMELEON!@"
+	text_end
+	
+_BillsHouseOakText2::
+	text "OAK: Haha!"
+
+	para "CHARMELEON"
+	line "seems happy to"
+	cont "be reunited with"
+	cont "you again!"
+	
+	para "Well, <PLAYER>!"
+	
+	para "I'd better"
+	line "return to the"
+	cont "LAB now!"
+	prompt

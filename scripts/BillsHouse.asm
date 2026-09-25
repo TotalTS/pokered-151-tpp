@@ -12,6 +12,8 @@ BillsHouse_ScriptPointers:
 	dw_const BillsHouseBillExitsMachineScript,     SCRIPT_BILLSHOUSE_BILL_EXITS_MACHINE
 	dw_const BillsHouseCleanupScript,              SCRIPT_BILLSHOUSE_CLEANUP
 	dw_const BillsHousePCScript,                   SCRIPT_BILLSHOUSE_PC
+	dw_const BillsHouseOakWalkScript,              SCRIPT_BILLSHOUSE_OAK_WALK
+	dw_const BillsHouseOakScript,                  SCRIPT_BILLSHOUSE_OAK
 
 BillsHouseDefaultScript:
 	ret
@@ -116,11 +118,53 @@ BillsHousePCScript:
 	ld [wBillsHouseCurScript], a
 	ret
 
+BillsHouseOakWalkScript:
+	ld a, [wSpritePlayerStateData1FacingDirection]
+	cp SPRITE_FACING_RIGHT
+	ld de, MoveOakBillHouse
+	jr nz, .notUp
+	ld de, MoveOakBillHouseR
+.notUp
+	ld a, BILLSHOUSE_OAK
+	ldh [hSpriteIndex], a
+	call MoveSprite
+	ld a, SCRIPT_BILLSHOUSE_OAK
+	ld [wBillsHouseCurScript], a
+	ret
+
+BillsHouseOakScript:
+	ld a, [wStatusFlags5]
+	bit BIT_SCRIPTED_NPC_MOVEMENT, a
+	ret nz
+	ld a, TOGGLE_BILLS_HOUSE_OAK
+	ld [wToggleableObjectIndex], a
+	predef HideObject
+	ld a, $0
+	xor a
+	ld [wJoyIgnore], a
+	ld [wBillsHouseCurScript], a
+	ret
+	
+MoveOakBillHouse:
+	db NPC_MOVEMENT_LEFT
+	db NPC_MOVEMENT_LEFT
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_DOWN
+	db -1 ; end
+	
+MoveOakBillHouseR:
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_LEFT
+	db NPC_MOVEMENT_LEFT
+	db NPC_MOVEMENT_DOWN
+	db -1 ; end
+
 BillsHouse_TextPointers:
 	def_text_pointers
 	dw_const BillsHouseBillPokemonText,               TEXT_BILLSHOUSE_BILL_POKEMON
 	dw_const BillsHouseBillSSTicketText,              TEXT_BILLSHOUSE_BILL_SS_TICKET
 	dw_const BillsHouseBillCheckOutMyRarePokemonText, TEXT_BILLSHOUSE_BILL_CHECK_OUT_MY_RARE_POKEMON
+	dw_const BillsHouseOakText,                       TEXT_BILLSHOUSE_OAK
 	dw_const BillsHouseActivatePCScript,              TEXT_BILLSHOUSE_ACTIVATE_PC
 
 BillsHouseActivatePCScript:
@@ -213,4 +257,29 @@ BillsHouseBillCheckOutMyRarePokemonText:
 
 .Text:
 	text_far _BillsHouseBillCheckOutMyRarePokemonText
+	text_end
+
+BillsHouseOakText:
+	text_asm
+	ld hl, BillsOakText1
+	call PrintText
+	ld hl, RecoveredCharmeleonText
+	call PrintText
+	ld hl, BillsOakText2
+	call PrintText
+	ld a, SCRIPT_BILLSHOUSE_OAK_WALK
+	ld [wBillsHouseCurScript], a
+	jp TextScriptEnd
+
+BillsOakText1:
+	text_far _BillsHouseOakText1
+	text_end
+	
+RecoveredCharmeleonText:
+	text_far _RecoveredCharmeleonText
+	sound_get_key_item
+	text_end
+	
+BillsOakText2:
+	text_far _BillsHouseOakText2
 	text_end

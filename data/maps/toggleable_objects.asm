@@ -211,6 +211,7 @@ ToggleableObjectStates:
 	toggle_object_state BILLSHOUSE_BILL_POKEMON, ON
 	toggle_object_state BILLSHOUSE_BILL1,        OFF
 	toggle_object_state BILLSHOUSE_BILL2,        OFF
+	toggle_object_state BILLSHOUSE_OAK,          ON
 
 	toggleable_objects_for VIRIDIAN_FOREST
 	toggle_object_state VIRIDIANFOREST_ANTIDOTE,  ON
@@ -317,7 +318,7 @@ ToggleableObjectStates:
 	toggle_object_state SILPHCO7F_RIVAL,           ON
 	toggle_object_state SILPHCO7F_CALCIUM,         ON
 	toggle_object_state SILPHCO7F_TM_SWORDS_DANCE, ON
-	toggle_object_state SILPHCO7F_UNUSED,          ON
+;	toggle_object_state SILPHCO7F_UNUSED,          ON
 
 	toggleable_objects_for SILPH_CO_8F
 	toggle_object_state SILPHCO8F_ROCKET1,   ON

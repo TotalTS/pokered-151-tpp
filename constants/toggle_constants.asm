@@ -184,6 +184,7 @@ ENDM
 	const TOGGLE_BILL_POKEMON                  ; 61
 	const TOGGLE_BILL_1                        ; 62
 	const TOGGLE_BILL_2                        ; 63
+	const TOGGLE_BILLS_HOUSE_OAK               ; New
 
 	toggle_consts_for VIRIDIAN_FOREST
 	const TOGGLE_VIRIDIAN_FOREST_ITEM_1        ; 64 X
@@ -290,7 +291,7 @@ ENDM
 	const TOGGLE_SILPH_CO_7F_RIVAL             ; A7
 	const TOGGLE_SILPH_CO_7F_ITEM_1            ; A8 X
 	const TOGGLE_SILPH_CO_7F_ITEM_2            ; A9 X
-	const TOGGLE_SILPH_CO_7F_8                 ; AA XXX sprite doesn't exist
+;	const TOGGLE_SILPH_CO_7F_8                 ; AA XXX sprite doesn't exist
 
 	toggle_consts_for SILPH_CO_8F
 	const TOGGLE_SILPH_CO_8F_1                 ; AB
