@@ -127,4 +127,9 @@ _BillsHouseOakText2::
 	para "I'd better"
 	line "return to the"
 	cont "LAB now!"
-	prompt
+	done
+
+_BillsHouseOakNoRoomText::
+	text "You have no room"
+	line "for this!"
+	done

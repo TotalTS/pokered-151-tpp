@@ -495,6 +495,8 @@ CheckAlternativeSprite::
 	jr z, .checkLapras
 	cp PIDGEOT
 	jr z, .checkPidgeot
+	cp CHARMELEON
+	jr z, .checkCharmeleon
 	ret
 .checkZapdos
 	ld a, [de]
@@ -573,6 +575,16 @@ CheckAlternativeSprite::
 	ld hl, AlternativePidgeotPic
 	ld b, BANK(AlternativePidgeotPic)
 	jr .useAlternativeSprite
+.checkCharmeleon
+	ld a, [de]
+	cp $26
+	ret nz
+	inc de
+	ld a, [de]
+	cp $31
+	ret nz
+	ld hl, AlternativeCharmeleonPic
+	ld b, BANK(AlternativeCharmeleonPic)
 .useAlternativeSprite
 	ld a, l
 	ld [wMonHFrontSprite], a

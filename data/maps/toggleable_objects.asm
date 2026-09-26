@@ -211,7 +211,7 @@ ToggleableObjectStates:
 	toggle_object_state BILLSHOUSE_BILL_POKEMON, ON
 	toggle_object_state BILLSHOUSE_BILL1,        OFF
 	toggle_object_state BILLSHOUSE_BILL2,        OFF
-	toggle_object_state BILLSHOUSE_OAK,          ON
+	toggle_object_state BILLSHOUSE_OAK,          OFF
 
 	toggleable_objects_for VIRIDIAN_FOREST
 	toggle_object_state VIRIDIANFOREST_ANTIDOTE,  ON

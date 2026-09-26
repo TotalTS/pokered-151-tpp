@@ -263,13 +263,209 @@ BillsHouseOakText:
 	text_asm
 	ld hl, BillsOakText1
 	call PrintText
+	ld a, [wPartyCount]
+	cp 6
+	jr nz, .givePokemon
+	ld hl, .PartyFullText
+	call PrintText
+	jp TextScriptEnd
+
+.givePokemon
 	ld hl, RecoveredCharmeleonText
 	call PrintText
+
+	; Add Charmeleon
+	ld a, CHARMELEON
+	ld [wCurPartySpecies], a
+	ld a, 34 ; Level
+	ld [wCurEnemyLevel], a
+	ld a, $80 ; Skip naming screen
+	ld [wMonDataLocation], a
+	call AddPartyMon
+
+	; Get the index of the mon we just added
+	ld a, [wPartyCount]
+	dec a
+	ld [wWhichPokemon], a ; wWhichPokemon now has the index of our Charmeleon
+
+	; Set nickname "ABBBBBBK("
+	ld hl, wPartyMonNicks
+	ld a, [wWhichPokemon]
+	call SkipFixedLengthTextEntries
+	ld d, h
+	ld e, l
+	ld hl, CustomCharmeleonNick
+	ld bc, NAME_LENGTH
+	call CopyData
+
+	; Get pointer to the mon we just added
+	ld hl, wPartyMons
+	ld a, [wWhichPokemon]
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+
+	; HP: 93 = $005D	
+    push hl
+    ld bc, MON_HP - MON_SPECIES
+    add hl, bc
+    ld a, $00
+    ld [hli], a
+    ld a, $5d
+    ld [hl], a
+    pop hl
+
+	; Force the stats directly
+	ld bc, MON_MAXHP - MON_SPECIES
+	add hl, bc
+
+	; MAXHP: 93 = $005D
+	ld a, $00
+	ld [hli], a
+	ld a, $5d
+	ld [hli], a
+
+	; ATK: 57 = $0039
+	ld a, $00
+	ld [hli], a
+	ld a, $39
+	ld [hli], a
+
+	; DEF: 56 = $0038
+	ld a, $00
+	ld [hli], a
+	ld a, $38
+	ld [hli], a
+
+	; SPD: 69 = $0045
+	ld a, $00
+	ld [hli], a
+	ld a, $45
+	ld [hli], a
+
+	; SPC: 56 = $0038
+	ld a, $00
+	ld [hli], a
+	ld a, $38
+	ld [hl], a
+
+	; Set moves: Cut, Bide, Growl, Leer
+	ld hl, wPartyMons
+	ld a, [wWhichPokemon]
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+
+	ld bc, MON_MOVES - MON_SPECIES
+	add hl, bc
+
+	ld a, CUT
+	ld [hli], a
+	ld a, BIDE
+	ld [hli], a
+	ld a, GROWL
+	ld [hli], a
+	ld a, LEER
+	ld [hl], a
+
+	; Set move PP: 30, 10, 40, 30
+	ld hl, wPartyMons
+	ld a, [wWhichPokemon]
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+
+	ld bc, MON_PP - MON_SPECIES
+	add hl, bc
+
+	ld a, 30
+	ld [hli], a ; Cut PP
+	ld a, 10
+	ld [hli], a ; Bide PP
+	ld a, 40
+	ld [hli], a ; Growl PP
+	ld a, 30
+	ld [hl], a  ; Leer PP
+
+	; Set EXP: 33964 = $0084AC
+	ld hl, wPartyMons
+	ld a, [wWhichPokemon]
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+
+	ld bc, MON_EXP - MON_SPECIES
+	add hl, bc
+
+	ld a, $00
+	ld [hli], a ; EXP byte 1
+	ld a, $84
+	ld [hli], a ; EXP byte 2
+	ld a, $ac
+	ld [hl], a  ; EXP byte 3
+
+	; Set IVs
+	ld hl, wPartyMons
+	ld a, [wWhichPokemon]
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+
+	ld bc, MON_DVS - MON_SPECIES
+	add hl, bc
+	
+	; Set fixed IVs to avoid randomness
+	ld a, $26
+	ld [hli], a ; DV byte 1
+	ld a, $31
+	ld [hl], a  ; DV byte 2
+
+	; Set EVs: HP: 9950, ATK: 9128, DEF: 8135, SPD: 9545, SPC: 6547
+	ld hl, wPartyMons
+	ld a, [wWhichPokemon]
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+
+	ld bc, MON_HP_EXP - MON_SPECIES
+	add hl, bc
+
+	; HP EV: 9950 = $26CE
+	ld a, $ce
+	ld [hli], a
+	ld a, $26
+	ld [hli], a
+
+	; ATK EV: 9128 = $23A8
+	ld a, $a8
+	ld [hli], a
+	ld a, $23
+	ld [hli], a
+
+	; DEF EV: 8135 = $1FC7
+	ld a, $c7
+	ld [hli], a
+	ld a, $1f
+	ld [hli], a
+
+	; SPD EV: 9545 = $2549
+	ld a, $49
+	ld [hli], a
+	ld a, $25
+	ld [hli], a
+
+	; SPC EV: 6547 = $1993
+	ld a, $93
+	ld [hli], a
+	ld a, $19
+	ld [hl], a
+
 	ld hl, BillsOakText2
 	call PrintText
 	ld a, SCRIPT_BILLSHOUSE_OAK_WALK
 	ld [wBillsHouseCurScript], a
 	jp TextScriptEnd
+
+.PartyFullText
+	text_far _BillsHouseOakNoRoomText
+	text_end
+
+CustomCharmeleonNick:
+	db "ABBBBBBK(@"
 
 BillsOakText1:
 	text_far _BillsHouseOakText1
