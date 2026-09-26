@@ -99,6 +99,13 @@ HallOfFameOakCongratulationsScript:
 	ld a, TOGGLE_CERULEAN_CAVE_GUY
 	ld [wToggleableObjectIndex], a
 	predef HideObject
+	ld a, [wNumHoFTeams]
+	cp 1
+	jr nz, .skipBillsOak
+	ld a, TOGGLE_BILLS_HOUSE_OAK
+	ld [wToggleableObjectIndex], a
+	predef ShowObject
+.skipBillsOak
 	ld a, SCRIPT_HALLOFFAME_RESET_EVENTS_AND_SAVE
 	ld [wHallOfFameCurScript], a
 	ret

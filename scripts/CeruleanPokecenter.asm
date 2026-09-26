@@ -20,14 +20,5 @@ CeruleanPokecenterSuperNerdText:
 	text_end
 
 CeruleanPokecenterGentlemanText:
-	text_asm
-	ld hl, .UsualPokecenterGentlemanText
-	call PrintText
-	ld a, TOGGLE_BILLS_HOUSE_OAK
-	ld [wToggleableObjectIndex], a
-	predef ShowObject
-	jp TextScriptEnd
-
-.UsualPokecenterGentlemanText
 	text_far _CeruleanPokecenterGentlemanText
 	text_end

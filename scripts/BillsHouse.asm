@@ -416,6 +416,7 @@ BillsHouseOakText:
 	ld [hl], a  ; DV byte 2
 
 	; Set EVs: HP: 9950, ATK: 9128, DEF: 8135, SPD: 9545, SPC: 6547
+	; (Replace for BIG-ENDIAN: high byte first!)
 	ld hl, wPartyMons
 	ld a, [wWhichPokemon]
 	ld bc, PARTYMON_STRUCT_LENGTH
@@ -424,34 +425,34 @@ BillsHouseOakText:
 	ld bc, MON_HP_EXP - MON_SPECIES
 	add hl, bc
 
-	; HP EV: 9950 = $26CE
-	ld a, $ce
-	ld [hli], a
+	; HP EV: 9950 = $26DE
 	ld a, $26
+	ld [hli], a
+	ld a, $de
 	ld [hli], a
 
 	; ATK EV: 9128 = $23A8
-	ld a, $a8
-	ld [hli], a
 	ld a, $23
+	ld [hli], a
+	ld a, $a8
 	ld [hli], a
 
 	; DEF EV: 8135 = $1FC7
-	ld a, $c7
-	ld [hli], a
 	ld a, $1f
+	ld [hli], a
+	ld a, $c7
 	ld [hli], a
 
 	; SPD EV: 9545 = $2549
-	ld a, $49
-	ld [hli], a
 	ld a, $25
+	ld [hli], a
+	ld a, $49
 	ld [hli], a
 
 	; SPC EV: 6547 = $1993
-	ld a, $93
-	ld [hli], a
 	ld a, $19
+	ld [hli], a
+	ld a, $93
 	ld [hl], a
 
 	ld hl, BillsOakText2
