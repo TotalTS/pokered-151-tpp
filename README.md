@@ -6,11 +6,11 @@ An analysis of the ROM in question can be found here. [Reddit Post](https://www.
 
 # Features
 
-- Historical accuracy: Recreates the details of the original obscure ROM, including the modified title screen, SGB border, and the bugged/incomplete Vermilion City notice sign.
-- Unique sprites: Party sprites are customized and tied directly to the exact internal DVs of the original TPP team. Pokémon sharing those specific DVs (like AA-j the Zapdos) inherit unique sprites across the Status Screen, Wild Battles, and Hall of Fame.
-- Helix Fossil: The Helix Fossil can now be used from your item menu to trigger completely random controller inputs (Up, Down, Left, Right, A, B, Start, Select).
+- Recreates the details of the original obscure ROM, including the modified title screen, SGB border, and the bugged/incomplete Vermilion City notice sign.
+- Party sprites are customized and tied directly to the exact internal DVs of the original TPP team. Pokémon sharing those specific DVs (like AA-j the Zapdos) inherit unique sprites across the Status Screen, Wild Battles, and Hall of Fame.
+- The Helix Fossil can now be used from your item menu to trigger completely random controller inputs (Up, Down, Left, Right, A, B, Start, Select).
 - Post-Game Event: After beating 2 times the Elite Four, visit Bill's House to trigger a special event where Professor Oak returns ABBBBBBK( (Abby the Charmeleon) to your party, restoring the beloved Pokémon tragically lost to the PC early in the original run, complete with 1:1 stats and EVs/DVs matching.
-- Save Compatibility: Full compatibility with the save file of the first TPP run. *(Note: This hack focuses strictly on the original run and does not consider later revisits).*
+- Full compatibility with the save file of the first TPP run. *(Note: This hack focuses strictly on the original run and does not consider later revisits).*
 
 # Screenshots
 
