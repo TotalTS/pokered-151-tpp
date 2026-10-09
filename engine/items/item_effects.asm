@@ -2965,14 +2965,14 @@ ItemUseFossil:
 	ld a, SFX_SAVE
 	call PlaySoundWaitForCurrent
 	call WaitForSoundToFinish
-	ld c, 30
+	ld c, 40
 	call DelayFrames
 	ldh a, [hRandomAdd]
 	cp 200
 	jr c, .Down
 	ld hl, FossilUpText
 	call PrintText
-	ld c, 30
+	ld c, 40
 	call DelayFrames
 	ld a, $1
 	ld [wSimulatedJoypadStatesIndex], a
@@ -2985,7 +2985,7 @@ ItemUseFossil:
 	jr c, .Left
 	ld hl, FossilDownText
 	call PrintText
-	ld c, 30
+	ld c, 40
 	call DelayFrames
 	ld a, $1
 	ld [wSimulatedJoypadStatesIndex], a
@@ -2998,7 +2998,7 @@ ItemUseFossil:
 	jr c, .Right
 	ld hl, FossilLeftText
 	call PrintText
-	ld c, 30
+	ld c, 40
 	call DelayFrames
 	ld a, $1
 	ld [wSimulatedJoypadStatesIndex], a
@@ -3011,7 +3011,7 @@ ItemUseFossil:
 	jr c, .AButton
 	ld hl, FossilRightText
 	call PrintText
-	ld c, 30
+	ld c, 40
 	call DelayFrames
 	ld a, $1
 	ld [wSimulatedJoypadStatesIndex], a
@@ -3024,8 +3024,20 @@ ItemUseFossil:
 	jr c, .BButton
 	ld hl, FossilAText
 	call PrintText
-	ld c, 30
+	ld c, 40
 	call DelayFrames
+	call ItemUseReloadOverworldData
+	call UpdateSprites
+	ldh a, [hJoyHeld]
+	set B_PAD_A, a
+	ldh [hJoyHeld], a
+	ldh a, [hJoyPressed]
+	set B_PAD_A, a
+	ldh [hJoyPressed], a
+	call CheckForHiddenEventOrBookshelfOrCardKeyDoor
+	ldh a, [hItemAlreadyFound]
+	and a
+	jr z, .aButtonDone
 	call IsSpriteOrSignInFrontOfPlayer
 	ldh a, [hTextID]
 	and a
@@ -3034,13 +3046,19 @@ ItemUseFossil:
 	call UpdateSprites
 	call DisplayTextID
 .aButtonDone
+	ldh a, [hJoyHeld]
+	res B_PAD_A, a
+	ldh [hJoyHeld], a
+	ldh a, [hJoyPressed]
+	res B_PAD_A, a
+	ldh [hJoyPressed], a
 	ret
 .BButton
 	cp 100
 	jr c, .SelectButton
 	ld hl, FossilBText
 	call PrintText
-	ld c, 30
+	ld c, 40
 	call DelayFrames
 	ld a, $1
 	ld [wSimulatedJoypadStatesIndex], a
@@ -3053,7 +3071,7 @@ ItemUseFossil:
 	jr c, .StartButton
 	ld hl, FossilSelectText
 	call PrintText
-	ld c, 30
+	ld c, 40
 	call DelayFrames
 	ld a, $1
 	ld [wSimulatedJoypadStatesIndex], a
@@ -3066,7 +3084,7 @@ ItemUseFossil:
 	jr c, .NothingHappened
 	ld hl, FossilStartText
 	call PrintText
-	ld c, 30
+	ld c, 40
 	call DelayFrames
 	ld a, $1
 	ld [wSimulatedJoypadStatesIndex], a
@@ -3077,6 +3095,7 @@ ItemUseFossil:
 .NothingHappened
 	ld hl, FossilNothingText
 	call PrintText
+	call WaitForTextScrollButtonPress
 	ret
 .end
 	jp StartSimulatingJoypadStates
@@ -3086,7 +3105,7 @@ FossilText:
 	text_end
 
 FossilNothingText:
-	text_far _NothingHappenedText
+	text_far _FossilNothingText
 	text_end
 
 FossilUpText:

@@ -1825,3 +1825,7 @@ _FossilSelectText::
 _FossilStartText::
 	text "START"
 	done
+
+_FossilNothingText::
+	text "Nothing happened!"
+	done
